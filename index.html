@@ -1,1 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>Diabetes Webinar Support</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f7fb;
+      color: #172033;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #123c69, #1d70a2);
+      color: white;
+      padding: 28px 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      margin: 0 0 8px;
+      font-size: 30px;
+    }
+
+    .header p {
+      margin: 0;
+      opacity: 0.9;
+      font-size: 15px;
+    }
+
+    .container {
+      width: min(1000px, 94%);
+      margin: 30px auto;
+    }
+
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 25px;
+      margin-bottom: 22px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      color: #123c69;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 150px;
+      resize: vertical;
+      border: 2px solid #d7e0ea;
+      border-radius: 12px;
+      padding: 15px;
+      font-size: 16px;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    textarea:focus {
+      border-color: #1d70a2;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: #123c69;
+      color: white;
+    }
+
+    .primary:hover {
+      background: #0d2e50;
+    }
+
+    .secondary {
+      background: #e8eef5;
+      color: #123c69;
+    }
+
+    .quick-title {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .quick-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .quick-buttons button {
+      background: #eef5fa;
+      color: #123c69;
+      border: 1px solid #d5e4ef;
+      font-size: 13px;
+      padding: 9px 13px;
+    }
+
+    .answer-card {
+      border: 1px solid #dce5ee;
+      border-radius: 14px;
+      padding: 20px;
+      margin-top: 15px;
+      background: #fbfdff;
+    }
+
+    .answer-card h3 {
+      margin-top: 0;
+      color: #123c69;
+    }
+
+    .language {
+      font-size: 12px;
+      font-weight: bold;
+      color: #777;
+      margin-bottom: 7px;
+      text-transform: uppercase;
+    }
+
+    .answer-text {
+      line-height: 1.65;
+      white-space: pre-line;
+    }
+
+    .copy-btn {
+      background: #198754;
+      color: white;
+      margin-top: 12px;
+    }
+
+    .copy-btn:hover {
+      background: #146c43;
+    }
+
+    .warning {
+      background: #fff8e1;
+      border-left: 5px solid #f0ad00;
+      padding: 15px;
+      border-radius: 10px;
+      line-height: 1.6;
+    }
+
+    .danger {
+      background: #fff0f0;
+      border-left: 5px solid #dc3545;
+      padding: 15px;
+      border-radius: 10px;
+      line-height: 1.6;
+    }
+
+    .success {
+      background: #edf9f1;
+      border-left: 5px solid #198754;
+      padding: 15px;
+      border-radius: 10px;
+      line-height: 1.6;
+    }
+
+    .callback-box {
+      margin-top: 18px;
+      padding: 20px;
+      background: #f1f7ff;
+      border-radius: 14px;
+      border: 1px solid #cfe1f5;
+    }
+
+    .callback-box input {
+      width: 100%;
+      padding: 13px;
+      margin-top: 10px;
+      border: 1px solid #cbd7e3;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    .small-note {
+      color: #697586;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    .empty {
+      text-align: center;
+      color: #687385;
+      padding: 25px;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 25px;
+      color: #718096;
+      font-size: 13px;
+    }
+
+    @media (max-width: 600px) {
+      .header h1 {
+        font-size: 24px;
+      }
+
+      .card {
+        padding: 18px;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <h1>Diabetes Webinar Support</h1>
+    <p>Approved Webinar Answers • Tamil & English</p>
+  </header>
+
+  <main class="container">
+
+    <section class="card">
+      <h2>Customer Question</h2>
+
+      <textarea
+        id="question"
+        placeholder="Customer question இங்கே type / paste பண்ணுங்க..."
+      ></textarea>
+
+      <div class="button-row">
+        <button class="primary" onclick="getAnswer()">
+          Get Answer
+        </button>
+
+        <button class="secondary" onclick="clearQuestion()">
+          Clear
+        </button>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="quick-title">Quick Questions</div>
+
+      <div class="quick-buttons">
+
+        <button onclick="useQuestion('Can a working person join the program?')">
+          Working Person
+        </button>
+
+        <button onclick="useQuestion('Can I stop my diabetes medicine?')">
+          Stop Medicine
+        </button>
+
+        <button onclick="useQuestion('How long is the program?')">
+          Program Duration
+        </button>
+
+        <button onclick="useQuestion('What support do you provide?')">
+          Support
+        </button>
+
+        <button onclick="useQuestion('Can a heart patient join?')">
+          Heart Patient
+        </button>
+
+        <button onclick="useQuestion('I am pregnant. Can I join?')">
+          Pregnancy
+        </button>
+
+        <button onclick="useQuestion('What is insulin resistance?')">
+          Insulin Resistance
+        </button>
+
+        <button onclick="useQuestion('What is detox?')">
+          Detox
+        </button>
+
+        <button onclick="useQuestion('Payment failed')">
+          Payment Failed
+        </button>
+
+        <button onclick="useQuestion('How can I register?')">
+          Registration
+        </button>
+
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Answer</h2>
+
+      <div id="results">
+        <div class="empty">
+          Customer question type பண்ணி <b>Get Answer</b> click பண்ணுங்க.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    Diabetes Webinar Support • Internal Support Tool
+  </footer>
+
+
+<script>
+
+const CALLBACK_TAMIL =
+"இன்னும் ஏதாவது doubt இருந்தா, உங்கள் mobile number-ஐ கொடுங்க. எங்க team உங்களுக்கு call பண்ணி help பண்ணுவாங்க.";
+
+const CALLBACK_ENGLISH =
+"Still any doubt? Please share your mobile number. Our team will call you and assist you.";
+
+
+/*
+  APPROVED WEBINAR ANSWERS
+*/
+
+const knowledgeBase = [
+
+  {
+    id: "working-person",
+    keywords: [
+      "working person",
+      "job",
+      "office",
+      "working",
+      "employee",
+      "work",
+      "வேலை",
+      "ஆபீஸ்"
+    ],
+
+    tamil:
+"ஆம். Webinar-ல் சொல்லப்பட்டபடி, working people-க்கும் இந்த program follow பண்ணும் வகையில் content மற்றும் recorded sessions கொடுக்கப்பட்டுள்ளது. தினமும் உங்கள் வசதிக்கு ஏற்ப நேரம் ஒதுக்கி follow பண்ணலாம்.",
+
+    english:
+"Yes. As explained in the webinar, the program is designed so working people can follow it along with their schedule. Recorded sessions are available, so you can learn at a convenient time.",
+
+    extra:
+"இன்னும் ஏதாவது doubt இருந்தா, உங்கள் mobile number-ஐ கொடுங்க. எங்க team உங்களுக்கு call பண்ணி help பண்ணுவாங்க.\n\nStill any doubt? Please share your mobile number. Our team will call you and assist you."
+  },
+
+
+  {
+    id: "program-duration",
+    keywords: [
+      "how long",
+      "duration",
+      "months",
+      "3 months",
+      "6 months",
+      "9 months",
+      "program duration",
+      "எவ்வளவு நாள்",
+      "எத்தனை மாதம்",
+      "duration"
+    ],
+
+    tamil:
+"Webinar-ல் இது ஒரு step-by-step lifestyle journey என்று explain பண்ணப்பட்டது. Individual progress ஒவ்வொருவருக்கும் மாறுபடும். அதனால் ஒரு குறிப்பிட்ட காலத்துக்குள் எல்லோருக்கும் ஒரே result கிடைக்கும் என்று சொல்ல முடியாது.",
+
+    english:
+"The webinar explains this as a step-by-step lifestyle journey. Individual progress can vary from person to person, so we should not promise the same result or timeline for everyone.",
+
+    extra:
+"இன்னும் ஏதாவது doubt இருந்தா, உங்கள் mobile number-ஐ கொடுங்க. எங்க team உங்களுக்கு call பண்ணி help பண்ணுவாங்க.\n\nStill any doubt? Please share your mobile number. Our team will call you and assist you."
+  },
+
+
+  {
+    id: "support",
+    keywords: [
+      "support",
+      "help",
+      "team",
+      "chat support",
+      "personal consultation",
+      "consultation",
+      "உதவி",
+      "support team"
+    ],
+
+    tamil:
+"ஆம். Webinar-ல் team support, chat support மற்றும் consultation support பற்றி explain பண்ணப்பட்டது. உங்கள் question அல்லது doubt இருந்தால் team-ஐ contact பண்ணலாம்.",
+
+    english:
+"Yes. The webinar explains team support, chat support and consultation support. If you have questions or doubts, you can contact the support team.",
+
+    extra:
+"இன்னும் ஏதாவது doubt இருந்தா, உங்கள் mobile number-ஐ கொடுங்க. எங்க team உங்களுக்கு call பண்ணி help பண்ணுவாங்க.\n\nStill any doubt? Please share your mobile number. Our team will call you and assist you."
+  },
+
+
+  {
+    id: "insulin-resistance",
+    keywords: [
+      "insulin resistance",
+      "insulin resistant",
+      "insulin",
+      "insulin problem",
+      "இன்சுலின்",
+      "insulin resistance என்றால்"
+    ],
+
+    tamil:
+"Webinar-ல் insulin resistance பற்றி முக்கியமாக explain பண்ணப்பட்டது. Lifestyle, food habits, physical activity மற்றும் body-ல் insulin எப்படி பயன்படுத்தப்படுகிறது என்பதுடன் இதை தொடர்புபடுத்தி session-ல் விளக்கப்பட்டது.",
+
+    english:
+"The webinar explains insulin resistance as an important concept and discusses it in relation to food habits, physical activity, lifestyle and how the body uses insulin.",
+
+    extra:
+"இன்னும் ஏதாவது doubt இருந்தா, உங்கள் mobile number-ஐ கொடுங்க. எங்க team உங்களுக்கு call பண்ணி help பண்ணுவாங்க.\n\nStill any doubt? Please share your mobile number. Our team will call you and assist you."
+  },
+
+
+  {
+    id: "lifestyle",
+    keywords: [
+      "lifestyle",
+      "food",
+      "diet",
+      "exercise",
+      "physical activity",
+      "junk food",
+      "carbohydrate",
+      "stress",
+      "உணவு",
+      "டயட்",
+      "வாழ்க்கை முறை"
+    ],
+
+    tamil:
+"Webinar-ல் lifestyle factors பற்றி முக்கியமாக பேசப்பட்டது. Food habits, physical activity, weight management மற்றும் stress management போன்ற lifestyle areas-ஐ கவனிப்பது பற்றி session-ல் explain பண்ணப்பட்டது.",
+
+    english:
+"The webinar discusses lifestyle factors such as food habits, physical activity, weight management and stress management as important areas to focus on.",
+
+    extra:
+"இன்னும் ஏதாவது doubt இருந்தா, உங்கள் mobile number-ஐ கொடுங்க. எங்க team உங்களுக்கு call பண்ணி help பண்ணுவாங்க.\n\nStill any doubt? Please share your mobile number. Our team will call you and assist you."
+  },
+
+
+  {
+    id: "detox",
+    keywords: [
+      "detox",
+      "detox program",
+      "detox water",
+      "3 day detox",
+      "detox course",
+      "டிடாக்ஸ்"
+    ],
+
+    tamil:
+"Webinar-ல் detox program பற்றி explain பண்ணப்பட்டது. இதில் என்னென்ன steps மற்றும் activities இருக்கிறது என்பதை program content-ல் பார்க்கலாம். தனிப்பட்ட medical condition-க்கு detox பற்றி முடிவு எடுப்பதற்கு qualified healthcare professional-ஐ அணுகுவது நல்லது.",
+
+    english:
+"The webinar explains a detox program and its activities as part of the program content. For decisions about detox based on an individual medical condition, please consult a qualified healthcare professional.",
+
+    extra:
+"இன்னும் ஏதாவது doubt இருந்தா, உங்கள் mobile number-ஐ கொடுங்க. எங்க team உங்களுக்கு call பண்ணி help பண்ணுவாங்க.\n\nStill any doubt? Please share your mobile number. Our team will call you and assist you."
+  },
+
+
+  {
+    id: "blood-test",
+    keywords: [
+      "blood test",
+      "blood tests",
+      "test",
+      "hba1c",
+      "sugar test",
+      "blood report",
+      "ரத்த பரிசோதனை",
+      "hba1c"
+    ],
+
+    tamil:
+"Webinar-ல் blood tests மற்றும் diabetes-related measurements பற்றி பேசப்பட்டது. உங்கள் report-ஐ தனிப்பட்ட முறையில் interpret செய்ய qualified healthcare professional-ஐ அணுகுங்கள்.",
+
+    english:
+"The webinar discusses blood tests and diabetes-related measurements. For interpretation of your personal test results, please consult a qualified healthcare professional.",
+
+    extra:
+"இன்னும் ஏதாவது doubt இருந்தா, உங்கள் mobile number-ஐ கொடுங்க. எங்க team உங்களுக்கு call பண்ணி help பண்ணுவாங்க.\n\nStill any doubt? Please share your mobile number. Our team will call you and assist you."
+  },
+
+
+  {
+    id: "sleep",
+    keywords: [
+      "sleep",
+      "sleep problem",
+      "sleep issue",
+      "sleep mastery",
+      "தூக்கம்",
+      "தூக்க பிரச்சனை"
+    ],
+
+    tamil:
+"Webinar-ல் sleep மற்றும் sleep-related lifestyle habits பற்றியும் support content பற்றியும் mention பண்ணப்பட்டது. உங்கள் தனிப்பட்ட sleep problem-க்கு medical advice தேவைப்பட்டால் healthcare professional-ஐ அணுகுங்கள்.",
+
+    english:
+"The webinar also mentions sleep and sleep-related lifestyle habits and support content. If you have a personal sleep-related medical concern, please consult a healthcare professional.",
+
+    extra:
+"இன்னும் ஏதாவது doubt இருந்தா, உங்கள் mobile number-ஐ கொடுங்க. எங்க team உங்களுக்கு call பண்ணி help பண்ணுவாங்க.\n\nStill any doubt? Please share your mobile number. Our team will call you and assist you."
+  },
+
+
+  {
+    id: "app",
+    keywords: [
+      "app",
+      "android",
+      "iphone",
+      "ios",
+      "mobile app",
+      "application",
+      "my health school",
+      "ஆப்"
+    ],
+
+    tamil:
+"Webinar-ல் mobile app பற்றி explain பண்ணப்பட்டது. Android மற்றும் iPhone users-க்கு app access பற்றியும் recorded content மற்றும் course materials பற்றியும் mention பண்ணப்பட்டது.",
+
+    english:
+"The webinar explains access through a mobile app, including Android and iPhone access, along with recorded content and course materials.",
+
+    extra:
+"இன்னும் ஏதாவது doubt இருந்தா, உங்கள் mobile number-ஐ கொடுங்க. எங்க team உங்களுக்கு call பண்ணி help பண்ணுவாங்க.\n\nStill any doubt? Please share your mobile number. Our team will call you and assist you."
+  },
+
+
+  {
+    id: "payment-failed",
+    keywords: [
+      "payment failed",
+      "payment failure",
+      "payment not working",
+      "payment problem",
+      "upi failed",
+      "gpay failed",
+      "phonepe failed",
+      "payment error",
+      "payment fail",
+      "payment"
+    ],
+
+    tamil:
+"Payment issue இருந்தால் உடனடியாக மீண்டும் மீண்டும் payment செய்ய வேண்டாம். Webinar-ல் சொல்லப்பட்டபடி support team-ஐ contact பண்ணி payment status verify பண்ணிக்கொள்ளலாம்.",
+
+    english:
+"If you have a payment issue, avoid making repeated payments immediately. As explained in the webinar, please contact the support team so the payment status can be verified.",
+
+    extra:
+"இன்னும் ஏதாவது doubt இருந்தா, உங்கள் mobile number-ஐ கொடுங்க. எங்க team உங்களுக்கு call பண்ணி help பண்ணுவாங்க.\n\nStill any doubt? Please share your mobile number. Our team will call you and assist you."
+  },
+
+
+  {
+    id: "payment-processing",
+    keywords: [
+      "payment processing",
+      "processing",
+      "debited",
+      "money deducted",
+      "amount deducted",
+      "payment pending",
+      "money taken"
+    ],
+
+    tamil:
+"Payment amount debit ஆகி status clear இல்லையென்றால், உடனடியாக second payment செய்யாமல் support team-ஐ contact பண்ணி transaction status verify பண்ணிக்கொள்ளுங்கள்.",
+
+    english:
+"If the amount has been debited but the payment status is unclear, please contact the support team and verify the transaction status before making another payment.",
+
+    extra:
+"இன்னும் ஏதாவது doubt இருந்தா, உங்கள் mobile number-ஐ கொடுங்க. எங்க team உங்களுக்கு call பண்ணி help பண்ணுவாங்க.\n\nStill any doubt? Please share your mobile number. Our team will call you and assist you."
+  },
+
+
+  {
+    id: "registration",
+    keywords: [
+      "register",
+      "registration",
+      "join",
+      "joining",
+      "enroll",
+      "enrollment",
+      "how to join",
+      "எப்படி join",
+      "பதிவு"
+    ],
+
+    tamil:
+"Program-ல் join/register செய்ய support team கொடுக்கும் joining link மற்றும் instructions-ஐ follow பண்ணலாம். Registration process-ல் help தேவைப்பட்டால் team-ஐ contact பண்ணலாம்.",
+
+    english:
+"To join or register for the program, you can follow the joining link and instructions provided by the support team. If you need help with registration, please contact the team.",
+
+    extra:
+"இன்னும் ஏதாவது doubt இருந்தா, உங்கள் mobile number-ஐ கொடுங்க. எங்க team உங்களுக்கு call பண்ணி help பண்ணுவாங்க.\n\nStill any doubt? Please share your mobile number. Our team will call you and assist you."
+  },
+
+
+  {
+    id: "refund",
+    keywords: [
+      "refund",
+      "money back",
+      "money-back",
+      "7 day",
+      "seven day",
+      "refund policy",
+      "refund amount"
+    ],
+
+    tamil:
+"Webinar-ல் 7-day money-back guarantee பற்றி mention பண்ணப்பட்டது. உங்கள் specific purchase அல்லது refund status தெரிந்து கொள்ள support team-ஐ contact பண்ணுங்கள்.",
+
+    english:
+"The webinar mentions a 7-day money-back guarantee. For your specific purchase or refund status, please contact the support team.",
+
+    extra:
+"இன்னும் ஏதாவது doubt இருந்தா, உங்கள் mobile number-ஐ கொடுங்க. எங்க team உங்களுக்கு call பண்ணி help பண்ணுவாங்க.\n\nStill any doubt? Please share your mobile number. Our team will call you and assist you."
+  },
+
+
+  {
+    id: "course-content",
+    keywords: [
+      "course",
+      "recorded videos",
+      "recordings",
+      "ebooks",
+      "live q&a",
+      "live session",
+      "course content",
+      "videos",
+      "material"
+    ],
+
+    tamil:
+"Program-ல் recorded sessions, course content, live sessions மற்றும் learning materials பற்றியும் webinar-ல் explain பண்ணப்பட்டது. Access மற்றும் content details-க்கு support team உதவி செய்யலாம்.",
+
+    english:
+"The webinar explains access to recorded sessions, course content, live sessions and learning materials. The support team can help with access and content details.",
+
+    extra:
+"இன்னும் ஏதாவது doubt இருந்தா, உங்கள் mobile number-ஐ கொடுங்க. எங்க team உங்களுக்கு call பண்ணி help பண்ணுவாங்க.\n\nStill any doubt? Please share your mobile number. Our team will call you and assist you."
+  },
+
+
+  {
+    id: "weight-loss",
+    keywords: [
+      "weight loss",
+      "lose weight",
+      "weight",
+      "weight reduction",
+      "உடல் எடை",
+      "எடை குறைப்பு"
+    ],
+
+    tamil:
+"Webinar-ல் weight management பற்றி பேசப்பட்டது. Weight change ஒவ்வொருவருக்கும் வேறுபடும்; shortcut அல்லது guaranteed result என்று promise செய்யக்கூடாது. Consistent lifestyle changes முக்கியம் என்று session-ல் emphasize பண்ணப்பட்டது.",
+
+    english:
+"The webinar discusses weight management. Weight changes can differ from person to person, so we should not promise a shortcut or guaranteed result. The session emphasizes consistent lifestyle changes.",
+
+    extra:
+"இன்னும் ஏதாவது doubt இருந்தா, உங்கள் mobile number-ஐ கொடுங்க. எங்க team உங்களுக்கு call பண்ணி help பண்ணுவாங்க.\n\nStill any doubt? Please share your mobile number. Our team will call you and assist you."
+  },
+
+
+  {
+    id: "diabetes-types",
+    keywords: [
+      "type 1",
+      "type 2",
+      "type 2 diabetes",
+      "gestational",
+      "prediabetes",
+      "diabetes type",
+      "diabetes types",
+      "டைப் 2",
+      "கர்ப்ப கால diabetes"
+    ],
+
+    tamil:
+"Webinar-ல் Type 2 diabetes, prediabetes மற்றும் gestational diabetes போன்ற topics பற்றி discussion இருந்தது. உங்கள் specific diabetes type மற்றும் treatment பற்றி qualified healthcare professional-ஐ அணுகுங்கள்.",
+
+    english:
+"The webinar discusses topics including Type 2 diabetes, prediabetes and gestational diabetes. For your specific diabetes type and treatment, please consult a qualified healthcare professional.",
+
+    extra:
+"இன்னும் ஏதாவது doubt இருந்தா, உங்கள் mobile number-ஐ கொடுங்க. எங்க team உங்களுக்கு call பண்ணி help பண்ணுவாங்க.\n\nStill any doubt? Please share your mobile number. Our team will call you and assist you."
+  }
+
+];
+
+
+/*
+  HIGH-RISK MEDICAL QUESTIONS
+  These should NOT receive a treatment instruction.
+*/
+
+const highRiskKeywords = [
+
+  "stop medicine",
+  "stop my medicine",
+  "stop diabetes medicine",
+  "stop insulin",
+  "stop insulin injection",
+  "can i stop",
+  "should i stop",
+  "reduce medicine",
+  "reduce my medicine",
+  "reduce insulin",
+  "change dose",
+  "change my dose",
+  "increase dose",
+  "decrease dose",
+  "medicine dosage",
+  "insulin dosage",
+  "replace medicine",
+  "without medicine",
+  "no medicine",
+  "medicine stop",
+
+  "pregnant",
+  "pregnancy",
+  "pregnancy diabetes",
+  "gestational diabetes",
+
+  "heart attack",
+  "heart patient",
+  "heart disease",
+  "kidney failure",
+  "kidney disease",
+  "dialysis",
+  "liver failure",
+
+  "severe low sugar",
+  "very low sugar",
+  "hypoglycemia",
+  "unconscious",
+  "fainted",
+  "seizure",
+  "cannot breathe",
+  "difficulty breathing",
+  "chest pain",
+  "stroke",
+  "severe bleeding",
+  "emergency"
+];
+
+
+const emergencyKeywords = [
+  "chest pain",
+  "cannot breathe",
+  "difficulty breathing",
+  "unconscious",
+  "fainted",
+  "seizure",
+  "stroke",
+  "severe bleeding"
+];
+
+
+function normalize(text) {
+
+  return text
+    .toLowerCase()
+    .replace(/[.,!?;:()[\]{}"'`]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+}
+
+
+function containsAny(text, words) {
+
+  return words.some(word => text.includes(word));
+
+}
+
+
+function useQuestion(question) {
+
+  document.getElementById("question").value = question;
+
+  getAnswer();
+
+}
+
+
+function clearQuestion() {
+
+  document.getElementById("question").value = "";
+
+  document.getElementById("results").innerHTML = `
+    <div class="empty">
+      Customer question type பண்ணி <b>Get Answer</b> click பண்ணுங்க.
+    </div>
+  `;
+
+}
+
+
+function getAnswer() {
+
+  const rawQuestion =
+    document.getElementById("question").value.trim();
+
+  const results =
+    document.getElementById("results");
+
+
+  if (!rawQuestion) {
+
+    results.innerHTML = `
+      <div class="warning">
+        Please enter a customer question first.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  const question =
+    normalize(rawQuestion);
+
+
+  /*
+    EMERGENCY CHECK
+  */
+
+  if (containsAny(question, emergencyKeywords)) {
+
+    results.innerHTML = `
+      <div class="danger">
+
+        <h3>⚠️ Urgent Medical Attention</h3>
+
+        <p>
+          This question may describe an urgent medical situation.
+          The support team should not provide treatment instructions
+          through this tool.
+        </p>
+
+        <p>
+          Please advise the customer to seek immediate medical attention
+          from an appropriate healthcare professional or emergency service.
+        </p>
+
+      </div>
+    `;
+
+    return;
+  }
+
+
+  /*
+    HIGH-RISK MEDICAL CHECK
+  */
+
+  if (containsAny(question, highRiskKeywords)) {
+
+    results.innerHTML = `
+      <div class="warning">
+
+        <h3>⚠️ Medical Review Required</h3>
+
+        <p>
+          இந்த question-க்கு medicine / treatment change பற்றிய
+          direct advice இந்த tool மூலம் கொடுக்கக்கூடாது.
+        </p>
+
+        <p>
+          This tool does not provide instructions to start, stop,
+          reduce or change medicines.
+        </p>
+
+        <p>
+          Customer-ஐ qualified healthcare professional அல்லது
+          support team-க்கு refer பண்ணுங்க.
+        </p>
+
+      </div>
+
+      ${createCallbackBox()}
+    `;
+
+    return;
+  }
+
+
+  /*
+    FIND BEST APPROVED ANSWER
+  */
+
+  let bestMatch = null;
+
+  let bestScore = 0;
+
+
+  knowledgeBase.forEach(item => {
+
+    let score = 0;
+
+    item.keywords.forEach(keyword => {
+
+      const key = normalize(keyword);
+
+      if (question.includes(key)) {
+
+        score += Math.max(key.split(" ").length, 1);
+
+      }
+
+    });
+
+
+    if (score > bestScore) {
+
+      bestScore = score;
+
+      bestMatch = item;
+
+    }
+
+  });
+
+
+  /*
+    NO APPROVED ANSWER
+  */
+
+  if (!bestMatch || bestScore < 1) {
+
+    results.innerHTML = `
+
+      <div class="warning">
+
+        <h3>Approved Answer Not Found</h3>
+
+        <p>
+          இந்த question-க்கு approved answer கிடைக்கவில்லை.
+        </p>
+
+        <p>
+          இந்த tool random answer generate பண்ணாது.
+        </p>
+
+        <p>
+          <b>
+          Customer-ஐ webinar-ஐ continue பண்ண சொல்லி,
+          further assistance-க்கு support team-ஐ contact பண்ணுங்க.
+          </b>
+        </p>
+
+      </div>
+
+      ${createCallbackBox()}
+
+    `;
+
+    return;
+  }
+
+
+  /*
+    SHOW TWO ANSWER OPTIONS
+  */
+
+  results.innerHTML = `
+
+    <div class="success">
+      <b>Approved answer found.</b>
+      Customer-க்கு suitable answer-ஐ select செய்து copy பண்ணலாம்.
+    </div>
+
+    <div class="answer-card">
+
+      <h3>Option 1</h3>
+
+      <div class="language">Tamil</div>
+
+      <div class="answer-text" id="answer1Tamil">
+${bestMatch.tamil}
+
+${CALLBACK_TAMIL}
+      </div>
+
+      <button class="copy-btn"
+        onclick="copyText('answer1Tamil')">
+        Copy Answer
+      </button>
+
+    </div>
+
+
+    <div class="answer-card">
+
+      <h3>Option 2</h3>
+
+      <div class="language">English</div>
+
+      <div class="answer-text" id="answer1English">
+${bestMatch.english}
+
+${CALLBACK_ENGLISH}
+      </div>
+
+      <button class="copy-btn"
+        onclick="copyText('answer1English')">
+        Copy Answer
+      </button>
+
+    </div>
+
+  `;
+
+}
+
+
+function createCallbackBox() {
+
+  return `
+
+    <div class="callback-box">
+
+      <h3>Still any doubt?</h3>
+
+      <p>
+        ${CALLBACK_TAMIL}
+      </p>
+
+      <p>
+        ${CALLBACK_ENGLISH}
+      </p>
+
+      <input
+        id="mobileNumber"
+        type="tel"
+        maxlength="10"
+        placeholder="Enter 10-digit mobile number"
+      >
+
+      <button
+        class="primary"
+        style="margin-top:12px;"
+        onclick="submitMobile()">
+
+        Submit Mobile Number
+
+      </button>
+
+      <div
+        id="mobileMessage"
+        class="small-note">
+      </div>
+
+      <div class="small-note">
+        Note: This version only validates the number in the browser.
+        It does not permanently save the number.
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+function submitMobile() {
+
+  const input =
+    document.getElementById("mobileNumber");
+
+  const message =
+    document.getElementById("mobileMessage");
+
+
+  if (!input) return;
+
+
+  const number =
+    input.value.replace(/\D/g, "");
+
+
+  if (!/^[6-9]\d{9}$/.test(number)) {
+
+    message.innerHTML =
+      "Please enter a valid 10-digit Indian mobile number.";
+
+    return;
+
+  }
+
+
+  message.innerHTML =
+    "Mobile number received. Our support team can follow up with the customer.";
+
+}
+
+
+async function copyText(elementId) {
+
+  const element =
+    document.getElementById(elementId);
+
+  if (!element) return;
+
+
+  const text =
+    element.innerText;
+
+
+  try {
+
+    await navigator.clipboard.writeText(text);
+
+    alert("Answer copied successfully!");
+
+  } catch (error) {
+
+    alert("Copy failed. Please select and copy the answer manually.");
+
+  }
+
+}
+
+
+/*
+  ENTER KEY SUPPORT
+*/
+
+document
+  .getElementById("question")
+  .addEventListener("keydown", function(event) {
+
+    if (event.ctrlKey && event.key === "Enter") {
+
+      getAnswer();
+
+    }
+
+  });
+
+</script>
+
+</body>
+</html>
